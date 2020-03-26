@@ -1,0 +1,3 @@
+[submodule "CSV2RDF"]
+	path = CSV2RDF
+	url = git@github.com:AtomGraph/CSV2RDF.git
