@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm -rf site
+mkdir -p site
+cd covid
+./generate > ../site/covid.ttl

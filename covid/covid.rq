@@ -1,0 +1,30 @@
+PREFIX turtle:     <https://turtle.dance/ontology#>
+PREFIX schema:     <https://schema.org/> 
+PREFIX gn:         <http://www.geonames.org/ontology#>
+PREFIX xsd:        <http://www.w3.org/2001/XMLSchema#> 
+PREFIX terms:      <http://purl.org/dc/terms/>
+CONSTRUCT
+{
+    ?statistics a turtle:Covid19DailyCountryStatistics ;
+        gn:countryCode ?countryCode ;
+        terms:date ?date ;
+        turtle:covid19DailyCases ?cases ;
+        turtle:covid19DailyDeaths ?deaths .
+}
+WHERE
+{
+    ?statisticsRow <#countriesAndTerritories> ?name ;
+        <#dateRep> ?dateRep ;
+        <#cases> ?cases_string ;
+        <#deaths> ?deaths_string ;
+        <#month> ?month ;
+        <#day> ?day ;
+        <#year> ?year ;
+        <#countryCode> ?countryCode .
+
+    BIND(CONCAT("covid-19/", STR(?dateRep), "/", STR(?countryCode)) AS ?id)
+    BIND(URI(CONCAT(STR(<>), ?id)) AS ?statistics) # building URI from base URI and ID
+    BIND(CONCAT(STR(?year), "-", STR(?month), "-", STR(?day)) AS ?date)
+    BIND(xsd:integer(?cases_string) AS ?cases)
+    BIND(xsd:integer(?deaths_string) AS ?deaths)
+}

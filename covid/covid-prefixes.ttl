@@ -1,0 +1,6 @@
+@prefix c: <https://data.turtle.dance/covid-19/> .
+@prefix t: <https://turtle.dance/ontology#> .
+@prefix s: <https://schema.org/> .
+@prefix g: <http://www.geonames.org/ontology#> .
+@prefix d: <http://www.w3.org/2001/XMLSchema#> .
+@prefix r: <http://purl.org/dc/terms/> .

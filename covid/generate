@@ -1,0 +1,11 @@
+#!/bin/bash
+
+mkdir -p tmp
+
+curl -s https://opendata.ecdc.europa.eu/covid19/casedistribution/csv/ > tmp/covid.csv
+cat tmp/covid.csv | java -jar ../CSV2RDF/target/csv2rdf-2.0.2-SNAPSHOT-jar-with-dependencies.jar covid.rq https://data.turtle.dance/ > tmp/covid-raw.ttl
+cat covid-prefixes.ttl tmp/covid-raw.ttl | graphy read -c ttl / scribe -c ttl | \
+    sed -e 's/\<http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#type\>/a/g' | \
+    sed -e 's/\^\^d:string//g'
+
+rm -rf tmp
